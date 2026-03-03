@@ -12,5 +12,6 @@ let rec subst e1 v e2 =
   | Subtraction (a, b) -> Subtraction (subst a v e2, subst b v e2)
   | Multiplication (a, b) -> Multiplication (subst a v e2, subst b v e2)
   | Fix a -> Fix (subst a v e2)
-  | Let (x, a, b) -> Let (x, subst a v e2, subst b v e2)
+  | Let (x, a, b) when x <> v -> Let (x, subst a v e2, subst b v e2)
+  | Let (x, a, b) -> Let (x, a, b)
   | IfZero (a, b, c) -> IfZero (subst a v e2, subst b v e2, subst c v e2)
