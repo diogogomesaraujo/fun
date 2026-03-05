@@ -6,7 +6,7 @@ let () =
     Let (
       "fact",
       Fix (Lambda ("g", Lambda ("x", IfZero (Variable "x", Constant 1, Multiplication (Variable "x", Application (Variable "g", Subtraction (Variable "x", Constant 1))))))),
-      Application (Variable "fact", Constant 5))
+      Application (Variable "fact", Constant 60))
   in
   let _fib =
     Let (
@@ -16,6 +16,6 @@ let () =
       Application (Variable "fib", Constant 5)
     )
   in
-  match eval _fact [] with
+  match eval_cps _fact [] (fun x -> x) with
   | Int x -> Printf.printf "%d\n" x
   | _ -> failwith "could not reach a constant value"
