@@ -1,3 +1,6 @@
+(menhir (modules parser))
+(ocamllex lexer)
+
 (library
  (name lambda_calculus_interpreter)
  (preprocess (pps ppx_deriving.show))

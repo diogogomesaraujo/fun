@@ -1,0 +1,4 @@
+(library
+ (name fun)
+ (preprocess (pps ppx_deriving.show))
+)
