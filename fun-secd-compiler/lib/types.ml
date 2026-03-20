@@ -19,6 +19,7 @@ and instr =
   | LDF of instr list
   | LDFR of instr list
   | AP
+  | AA
   | LDRF
   | RTN
 
@@ -47,4 +48,4 @@ and dump = (stack * env * code) list
 
 and sym = identity list
 
-type conf = stack * env * code * dump * store
+and conf = stack * env * code * dump * store

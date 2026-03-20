@@ -1,4 +1,4 @@
-let parse (s : string) : Ast.term option =
+let parse s =
   try
     let lexbuf = Lexing.from_string s in
     try
