@@ -11,5 +11,6 @@ type term =
   | Addition of term * term
   | Subtraction of term * term
   | Multiplication of term * term
+  | Division of term * term
   | Fix of term
   [@@deriving show]

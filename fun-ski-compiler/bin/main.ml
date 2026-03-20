@@ -5,7 +5,7 @@ open Fun.Flatten
 open Fun.Show
 
 let () =
-  let fib = parse_from_file "examples/fib.fn" |> Option.get in
+  let fib = parse_from_file "examples/catalan.fn" |> Option.get in
   compile fib
   |> flatten
   |> evaluate

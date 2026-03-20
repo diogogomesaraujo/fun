@@ -17,6 +17,9 @@ let rec compile e sym =
   | Multiplication (e1, e2) ->
     (compile e1 sym) @
     (compile e2 sym) @ [MUL]
+  | Division (e1, e2) ->
+    (compile e1 sym) @
+    (compile e2 sym) @ [DIV]
   | Lambda (x, e) ->
     [LDF ((compile e (x::sym)) @ [RTN])]
   | Application (e1, e2) ->

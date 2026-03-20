@@ -16,6 +16,7 @@ rule read =
     | "+" { SUM }
     | "-" { SUB }
     | "*" { MUL }
+    | "/" { DIV }
     | "\\" { FUN }
     | "->" { ARROW }
     | "let" { LET }

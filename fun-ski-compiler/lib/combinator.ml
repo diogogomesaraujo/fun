@@ -5,6 +5,7 @@ type op =
   | Addition of comb * comb
   | Multiplication of comb * comb
   | Subtraction of comb * comb
+  | Division of comb * comb
   [@@deriving show]
 
 and comb =

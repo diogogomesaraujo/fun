@@ -13,6 +13,9 @@ let rec compile e =
   | Lambda.Multiplication (e1, e2) ->
     Combinator.Primitive
       (Combinator.Multiplication (compile e1, compile e2))
+  | Lambda.Division (e1, e2) ->
+    Combinator.Primitive
+      (Combinator.Division (compile e1, compile e2))
   | Lambda.Application (e1, e2) ->
     Combinator.Application (compile e1, compile e2)
   | Lambda.Lambda (x, Lambda.Variable v) when x = v -> Combinator.I

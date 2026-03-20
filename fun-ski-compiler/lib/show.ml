@@ -26,6 +26,10 @@ let rec combinator_to_string c =
     Printf.sprintf "(%s * %s)"
       (combinator_to_string c1)
       (combinator_to_string c2)
+  | Primitive (Division (c1, c2)) ->
+    Printf.sprintf "(%s / %s)"
+      (combinator_to_string c1)
+      (combinator_to_string c2)
   | IfZero (c1, c2, c3) ->
     Printf.sprintf "(ifzero %s %s %s)"
       (combinator_to_string c1)

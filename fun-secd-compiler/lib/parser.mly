@@ -15,6 +15,7 @@
 %token SUM
 %token SUB
 %token MUL
+%token DIV
 %token FUN
 %token ARROW
 %token EOF
@@ -39,7 +40,8 @@ sum:
   ;
 
 mul:
-  | e1 = mul; MUL; e2 = atomic { Multiplication (e1, e2) }
+  | e1 = mul; MUL; e2 = app { Multiplication (e1, e2) }
+  | e1 = mul; DIV; e2 = app { Division (e1, e2) }
   | a = app { a }
 
 app:

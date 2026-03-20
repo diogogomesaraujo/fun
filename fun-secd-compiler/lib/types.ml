@@ -13,6 +13,7 @@ and instr =
   | ADD
   | SUB
   | MUL
+  | DIV
   | SEL of instr list * instr list
   | JOIN
   | LDF of instr list

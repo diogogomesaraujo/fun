@@ -17,6 +17,9 @@ let execute c =
   | ((Int v1)::(Int v2)::s, e, MUL::c, d, m) ->
     let value = (Int (v2 * v1)) in
     (value::s, e, c, d, m)
+  | ((Int v1)::(Int v2)::s, e, DIV::c, d, m) ->
+    let value = (Int (v2 / v1)) in
+    (value::s, e, c, d, m)
   | (s, e, (LDF c')::c, d, m) ->
     let address = next m in
     ((Address address)::s, e, c, d, add address (c', e) m)
@@ -33,9 +36,9 @@ let execute c =
     (s, e, c', d, m)
   | (s, e, (LDFR c')::c, d, m) ->
     let address = next m in
-    let new_m = add address (c', (Address address)::e) m in
-    ((Address address)::s, e, c, d, new_m)
-  | _ -> failwith "error"
+    let m' = add address (c', (Address address)::e) m in
+    ((Address address)::s, e, c, d, m')
+  | _ -> failwith "runtime error"
 
 let rec execute_t c =
   match execute c with
