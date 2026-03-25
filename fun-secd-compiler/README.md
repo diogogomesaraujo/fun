@@ -13,7 +13,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About
 
-This repository contains a compiler from an extended λ-Calculus to SECD-machine instructions.
+This repository contains a compiler from an extended call-by-value λ-Calculus to SECD-machine instructions.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Getting Started
