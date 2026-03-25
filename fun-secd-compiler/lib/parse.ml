@@ -1,3 +1,6 @@
+(** Module that implements the parsing functions using Menhir's abstractions.*)
+
+(** [parse s] tries to parse a string into a term.*)
 let parse s =
   try
     let lexbuf = Lexing.from_string s in
@@ -5,14 +8,14 @@ let parse s =
       Some(Parser.prog Lexer.read lexbuf)
       with
       | Parsing.Parse_error ->
-        prerr_endline "Syntax error!";
+        prerr_endline "syntax error";
         None
   with
   | _ ->
-    prerr_endline "Lexing Error!";
+    prerr_endline "lexing error";
     None
 
-
+(** [parse_from_file file_path] tries to parse the content of a file into a term.*)
 let parse_from_file file_path =
   let read_lines file_path =
     let contents =

@@ -1,3 +1,5 @@
+(** Module that implements the evaluation of SECD-machine instructions.*)
+
 open Types
 
 (** [execute c] is the SECD virtual machine that evaluates a configuration [c]
