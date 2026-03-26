@@ -2,7 +2,7 @@
 <div align="center">
   <h3 align="center">fun</h3>
   <p align="center">
-      A simple functional programming language implemented in OCaml.
+      A core functional programming language implemented in OCaml.
   </p>
 </div>
 
@@ -13,7 +13,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About
 
-This repository contains a compiler from an extended λ-Calculus to SECD-machine instructions.
+This repository contains a compiler from an extended call-by-value λ-Calculus to SECD-machine instructions.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Getting Started
@@ -24,7 +24,7 @@ In order to run this project from source, you will need to have OCaml, `dune`, a
 
 ### Runnable Examples
 
-There are several code implementations in the `examples directory` you can run by changing the path in the `main.ml` executable.
+There are several code implementations in the `examples` directory you can run by changing the path in the `main.ml` executable.
 
 ```OCaml
 let () =
