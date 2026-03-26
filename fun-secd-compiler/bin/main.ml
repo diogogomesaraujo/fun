@@ -4,7 +4,7 @@ open Fun.Parse
 open Fun.Repl
 open Fun.Exn
 
-let usage_msg = "fun (--repl | <file1>)"
+let usage_msg = "fun (--repl | <file>)"
 
 let repl_flag = ref false
 
