@@ -1,5 +1,6 @@
 (** Module that implements the evaluation of SECD-machine instructions.*)
 
+open Exn
 open Secd
 
 (** [execute c] is the SECD virtual machine that evaluates a configuration [c]
@@ -71,7 +72,7 @@ let execute c =
     ((Address address)::s, e, c, d, m')
 
   (* If the term does not match any of the previous signatures, it is considered invalid.*)
-  | _ -> failwith "runtime error"
+  | _ -> raise (Exn (Semantic, "failed to execute the program"))
 
 (** [execute_t c] evaluates the configuration [c] recursivly until the code and the stack are empty.*)
 let rec execute_t c =

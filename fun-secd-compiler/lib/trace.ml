@@ -1,7 +1,7 @@
 (** Module that traces every step of the execution.*)
 
-open Execute
 open Secd
+open Execute
 
 (** [trace_config c] that constructs a list of the configurations in each step of the execution.
 It also returns the max stack and dump sizes.*)

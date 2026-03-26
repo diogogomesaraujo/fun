@@ -1,19 +1,17 @@
 (** Module that implements the parsing functions using Menhir's abstractions.*)
 
+open Exn
+
 (** [parse s] tries to parse a string into a term.*)
 let parse s =
   try
     let lexbuf = Lexing.from_string s in
-    try
-      Some(Parser.prog Lexer.read lexbuf)
-      with
-      | Parsing.Parse_error ->
-        prerr_endline "syntax error";
-        None
+    Parser.prog Lexer.read lexbuf
   with
+  | Parsing.Parse_error ->
+    raise (Exn (Syntax, "failed to parse the program"))
   | _ ->
-    prerr_endline "lexing error";
-    None
+    raise (Exn (Lex, "failed to tokenize the program"))
 
 (** [parse_from_file file_path] tries to parse the content of a file into a term.*)
 let parse_from_file file_path =

@@ -1,6 +1,7 @@
 (** Module that compiles the extended λ-Calculus to SECD-machine instructions.*)
 
 open Ast
+open Exn
 open Secd
 open Lookup
 
@@ -56,4 +57,4 @@ let rec compile e sym =
     let c = compile e (x::f::sym) in
     [LDFR (c @ [RTN])]
 
-  | _ -> failwith "semantic error"
+  | _ -> raise (Exn (Semantic, "failed to compile the program"))
