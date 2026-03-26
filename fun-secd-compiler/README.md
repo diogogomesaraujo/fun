@@ -28,8 +28,8 @@ There are several code implementations in the `examples` directory you can run b
 
 ```OCaml
 let () =
-  let fib = parse_from_file "examples/catalan.fn" |> Option.get in
-  match compile fib [] |> run with
+  let e = parse_from_file "examples/catalan.fn" |> Option.get in
+  match compile e [] |> run with
   | Int x -> Printf.printf "%d\n" x
   | _ -> failwith "Couldn't reach an integer value."
 ```
