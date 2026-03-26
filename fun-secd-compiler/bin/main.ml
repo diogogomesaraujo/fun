@@ -19,9 +19,9 @@ let spec_list =
 let () =
   Arg.parse spec_list anon_fun usage_msg;
 
-  if !repl_flag then
-    repl ()
-  else
+  match !repl_flag = true with
+  | true -> repl ();
+  | false ->
     try
       let e =
         parse_from_file !input_file

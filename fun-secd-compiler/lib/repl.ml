@@ -7,7 +7,7 @@ open Compile
 open Terminal_size
 
 (** [clear] prints [\n] for every row in the terminal.*)
-let clear =
+let clear () =
   let r = match get_rows () with
     | Some r -> r
     | None -> raise (Exn (Runtime, "can't get terminal rows"))
@@ -29,7 +29,7 @@ let rec repl_rec () =
     repl_rec ()
 
 (** [repl] executes the interactive environment.*)
-let repl =
-  clear;
+let repl () =
+  clear ();
   Printf.printf "welcome to fun's repl! type your programs bellow.\n\n";
-  repl_rec
+  repl_rec ()
