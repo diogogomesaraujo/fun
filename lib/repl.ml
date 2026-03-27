@@ -13,14 +13,28 @@ let clear () =
     | None -> raise (Exn (Runtime, "can't get terminal rows"))
   in
   for _ = 0 to r do
-    Printf.printf "\n"
+    Printf.printf "\n";
   done
+
+let read_term () =
+  let append a b =  a ^ b in
+  let rec read_term_rec acc =
+    Printf.printf "> ";
+    let line = read_line () in
+    match String.ends_with ~suffix: ";;" line with
+    | true -> append acc (String.sub line 0 (String.length line - 2))
+    | false -> append acc line |> read_term_rec
+  in
+  read_term_rec ""
 
 (** [repl_rec ()] interacts with the user and evaluates programs read from the stdin.*)
 let rec repl_rec () =
-  Printf.printf "> ";
   try
-    let e = read_line () |> parse in
+    let e =
+      try
+         read_term () |> parse
+      with _ -> raise (Exn (Runtime, "couldn't parse user input"))
+    in
     match compile e [] |> run with
     | Int x -> Printf.printf "< %d\n\n" x; repl_rec ()
     | _ -> raise (Exn (Runtime, "couldn't reach an integer value"))
