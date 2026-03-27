@@ -19,8 +19,8 @@ let clear () =
 (** [read_term ()] reads lines from the stdin until [";;"] expression appears.*)
 let read_term () =
   let append a b =  a ^ b in
+  Printf.printf "> ";
   let rec read_term_rec acc =
-    Printf.printf "> ";
     let line = read_line () in
     match String.ends_with ~suffix: ";;" line with
     | true -> append acc (String.sub line 0 (String.length line - 2))
