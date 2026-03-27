@@ -16,6 +16,7 @@ let clear () =
     Printf.printf "\n";
   done
 
+(** [read_term ()] reads lines from the stdin until [";;"] expression appears.*)
 let read_term () =
   let append a b =  a ^ b in
   let rec read_term_rec acc =
