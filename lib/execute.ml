@@ -39,15 +39,15 @@ let execute c =
 
   (* Load a λ-abstraction as a closure onto the stack.*)
   | (s, e, (LDF c')::c, d, m) ->
-    let address = next m in
-    ((Address address)::s, e, c, d, add address (c', e) m)
+    let address = StoreMap.next m in
+    ((Address address)::s, e, c, d, StoreMap.add address (c', e) m)
 
   (* Moves a value from the temporary stack to the environment.*)
   | (v::s, e, AA::c, d, m) -> (s, v::e, c, d, m)
 
   (* Applies a closure to the current argument, saving the current state in the dump.*)
   | (v::(Address a)::s, e, AP::c, d, m) ->
-    let (c', e') = get a m in
+    let (c', e') = StoreMap.get a m in
     ([], v::e', c', (s, e, c)::d, m)
 
   (* Returns from a function call and loads the previous state saved in the dump.*)
@@ -67,8 +67,8 @@ let execute c =
 
   (* Does the same as the LDF but for recursive calls.*)
   | (s, e, (LDFR c')::c, d, m) ->
-    let address = next m in
-    let m' = add address (c', (Address address)::e) m in
+    let address = StoreMap.next m in
+    let m' = StoreMap.add address (c', (Address address)::e) m in
     ((Address address)::s, e, c, d, m')
 
   (* If the term does not match any of the previous signatures, it is considered invalid.*)

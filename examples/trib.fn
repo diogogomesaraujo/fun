@@ -1,0 +1,7 @@
+let trib =
+    fix (
+        \g -> \x ->
+            ifzero x 0
+                (ifzero (x - 1) 1
+                    (ifzero (x - 2) 1 (g (x - 1) + g (x - 2) + g (x - 3)))))
+in trib 1
