@@ -35,8 +35,9 @@ let rec compile e sym =
     let c2 = compile e2 sym in
     c1 @ c2 @ [DIV]
 
-  | Lambda (x, e) ->
-    let c = compile e (x::sym) in
+  | Lambda (l, e) ->
+    let l = List.rev l in
+    let c = compile e (l @ sym) in
     [LDF (c @ [RTN])]
 
   | Application (e1, e2) ->
@@ -53,8 +54,9 @@ let rec compile e sym =
     let c2 = compile e2 (x::sym) in
     c1 @ [AA] @ c2
 
-  | Fix (Lambda(f, Lambda(x, e))) ->
-    let c = compile e (x::f::sym) in
+  | Fix Lambda(l, e) when List.length l > 1 ->
+    let l = List.rev l in
+    let c = compile e (l @ sym) in
     [LDFR (c @ [RTN])]
 
   | _ -> raise (Exn (Semantic, "failed to compile the program"))

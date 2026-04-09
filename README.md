@@ -67,7 +67,7 @@ in incr 1
 ```haskell
 let fact =
     fix (
-        \g -> \x ->
+        \g x ->
             ifzero x 1 (x * (g (x - 1)))
     )
 in fact 5
@@ -78,7 +78,7 @@ in fact 5
 ```haskell
 let fib =
     fix (
-        \g -> \x ->
+        \g x ->
             ifzero (x - 1) 1
                 (ifzero x 1 ((g (x - 1)) + (g (x - 2))))
     )
@@ -89,7 +89,7 @@ in fib 10
 ```haskell
 let trib =
     fix (
-        \g -> \x ->
+        \g x ->
             ifzero x 0
                 (ifzero (x - 1) 1
                     (ifzero (x - 2) 1 (g (x - 1) + g (x - 2) + g (x - 3)))))
@@ -100,7 +100,7 @@ in trib 1
 ```haskell
 let fact =
     fix (
-        \g -> \x ->
+        \g x ->
             ifzero x 1 (x * g (x - 1))
     )
 in let catalan =

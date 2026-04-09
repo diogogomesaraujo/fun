@@ -50,7 +50,7 @@ app:
 
 expr:
   | a = sum { a }
-  | FUN; id = ID; ARROW; e = expr { Lambda (id, e) }
+  | FUN; idl = list(ID); ARROW; e = expr { Lambda (idl, e) }
   | LET; id = ID; EQUAL; e1 = expr; IN e2 = expr { Let (id, e1, e2) }
   | IFZERO; a1 = atomic; a2 = atomic; a3 = atomic { IfZero (a1, a2, a3) }
   | FIX; a = atomic { Fix (a) }

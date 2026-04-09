@@ -7,7 +7,7 @@ type identity = string
 (** Type that represents a term recognized by the compiler.*)
 type term =
   | Variable of identity
-  | Lambda of identity * term
+  | Lambda of identity list * term
   | Application of term * term
   | Constant of int
   | IfZero of term * term * term
