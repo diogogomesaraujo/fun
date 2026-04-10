@@ -20,6 +20,7 @@
 %token ARROW
 %token EOF
 %token DEF
+%token DEFREC
 %token DOTS
 
 %start <Ast.term> prog
@@ -55,5 +56,6 @@ expr:
   | FUN; idl = list(ID); ARROW; e = expr { Lambda (idl, e) }
   | LET; id = ID; EQUAL; e1 = expr; IN e2 = expr { Let (id, e1, e2) }
   | DEF; id = ID; DOTS; vars = list(ID); EQUAL; e1 = expr; IN e2 = expr { Def (id, vars, e1, e2) }
+  | DEFREC; id = ID; DOTS; vars = list(ID); EQUAL; e1 = expr; IN e2 = expr { DefRec (id, vars, e1, e2) }
   | IFZERO; a1 = atomic; a2 = atomic; a3 = atomic { IfZero (a1, a2, a3) }
   | FIX; a = atomic { Fix (a) }

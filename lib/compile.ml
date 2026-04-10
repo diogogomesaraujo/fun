@@ -5,9 +5,16 @@ open Exn
 open Secd
 open Lookup
 
+let rec compile_lambda l e sym =
+  match l with
+  | [] -> compile e sym
+  | x::tl ->
+    let c = compile_lambda tl e (x::sym)
+    in [LDF (c @ [RTN])]
+
 (** [compile e sym] compiles a term recursively into SECD-machine code.
 It receives a term [e], as well as a symbol table [sym] that stores variable names at compile time.*)
-let rec compile e sym =
+and compile e sym =
   match e with
   | Constant n -> [LDC n]
 
@@ -36,9 +43,7 @@ let rec compile e sym =
     c1 @ c2 @ [DIV]
 
   | Lambda (l, e) ->
-    let l = List.rev l in
-    let c = compile e (l @ sym) in
-    [LDF (c @ [RTN])]
+    compile_lambda l e sym
 
   | Application (e1, e2) ->
     (compile e1 sym) @
@@ -55,13 +60,17 @@ let rec compile e sym =
     c1 @ [AA] @ c2
 
   | Def (f, l, e1, e2) ->
-    let c1 = compile (Lambda (l, e1)) sym in
+    let c1 = compile_lambda l e1 sym in
     let c2 = compile e2 (f::sym) in
     c1 @ [AA] @ c2
 
-  | Fix Lambda(l, e) when List.length l > 1 ->
-    let l = List.rev l in
-    let c = compile e (l @ sym) in
+  | DefRec (f, l, e1, e2) ->
+    let c1 = compile (Fix (Lambda (f::l, e1))) sym in
+    let c2 = compile e2 (f::sym) in
+    c1 @ [AA] @ c2
+
+  | Fix Lambda(f::x::tl, e) ->
+    let c = compile_lambda tl e (x::f::sym) in
     [LDFR (c @ [RTN])]
 
   | _ -> raise (Exn (Semantic, "failed to compile the program"))

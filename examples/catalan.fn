@@ -1,10 +1,5 @@
-let fact =
-    fix (
-        \g x ->
-            ifzero x 1 (x * g (x - 1))
-    )
-in let catalan =
-    \x ->
-        fact (2 * x) /
-        (fact (x + 1) * fact x)
+def rec fact : x
+    := ifzero x 1 (x * fact (x - 1))
+in def rec catalan : x
+    := fact (2 * x) / (fact (x + 1) * fact x)
 in catalan 10

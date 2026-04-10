@@ -1,6 +1,3 @@
-let fact =
-    fix (
-        \g x ->
-            ifzero x 1 (x * g (x - 1))
-    )
+def rec fact : x
+    := ifzero x 1 (x * fact (x - 1))
 in fact 5

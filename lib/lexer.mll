@@ -23,6 +23,7 @@ rule read =
     | ":" { DOTS }
     | ":=" { EQUAL }
     | "fix" { FIX }
+    | "def rec" { DEFREC }
     | "def" { DEF }
     | "ifzero" { IFZERO }
     | ['a'-'z' 'A'-'Z' '_']+ { ID (Lexing.lexeme lexbuf) }
