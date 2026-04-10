@@ -20,8 +20,10 @@ rule read =
     | "->" { ARROW }
     | "let" { LET }
     | "in" { IN }
-    | "=" { EQUAL }
+    | ":" { DOTS }
+    | ":=" { EQUAL }
     | "fix" { FIX }
+    | "def" { DEF }
     | "ifzero" { IFZERO }
     | ['a'-'z' 'A'-'Z' '_']+ { ID (Lexing.lexeme lexbuf) }
     | eof { EOF }

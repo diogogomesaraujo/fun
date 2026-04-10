@@ -12,6 +12,7 @@ type term =
   | Constant of int
   | IfZero of term * term * term
   | Let of identity * term * term
+  | Def of identity * identity list * term * term
   | Addition of term * term
   | Subtraction of term * term
   | Multiplication of term * term

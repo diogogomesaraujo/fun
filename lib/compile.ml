@@ -54,6 +54,11 @@ let rec compile e sym =
     let c2 = compile e2 (x::sym) in
     c1 @ [AA] @ c2
 
+  | Def (f, l, e1, e2) ->
+    let c1 = compile (Lambda (l, e1)) sym in
+    let c2 = compile e2 (f::sym) in
+    c1 @ [AA] @ c2
+
   | Fix Lambda(l, e) when List.length l > 1 ->
     let l = List.rev l in
     let c = compile e (l @ sym) in
