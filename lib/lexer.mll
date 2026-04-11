@@ -1,8 +1,9 @@
 {
 open Parser
+open Exn
 }
 
-let white = [' ' '\t' '\n']+
+let white = [' ' '\t' '\r' '\n']+
 let digit = ['0'-'9']
 let int = '-'? digit+
 
@@ -28,3 +29,4 @@ rule read =
     | "ifzero" { IFZERO }
     | ['a'-'z' 'A'-'Z' '_']+ { ID (Lexing.lexeme lexbuf) }
     | eof { EOF }
+    | _ as lxm { raise @@ Exn(Lex, "unexpected char" ^ (String.make 1 lxm)) }
