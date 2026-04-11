@@ -2,7 +2,7 @@
 open Parser
 }
 
-let white = [' ' '\t']+
+let white = [' ' '\t' '\n']+
 let digit = ['0'-'9']
 let int = '-'? digit+
 
@@ -23,8 +23,8 @@ rule read =
     | ":" { DOTS }
     | ":=" { EQUAL }
     | "fix" { FIX }
-    | "def rec" { DEFREC }
     | "def" { DEF }
+    | "def rec" { DEFREC }
     | "ifzero" { IFZERO }
     | ['a'-'z' 'A'-'Z' '_']+ { ID (Lexing.lexeme lexbuf) }
     | eof { EOF }
