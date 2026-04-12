@@ -1,3 +1,5 @@
 def rec fact : x
-    := ifzero x 1 (x * fact (x - 1))
+    := ifzero x
+        then 1
+        else x * fact (x - 1)
 in fact 5

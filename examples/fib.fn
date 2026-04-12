@@ -1,3 +1,7 @@
 def rec fib : x
-    := ifzero (x - 1) 1 (ifzero x 1 ((fib (x - 1)) + (fib (x - 2))))
+    := ifzero x - 1
+        then 1
+        else ifzero x
+            then 1
+            else (fib (x - 1)) + (fib (x - 2))
 in fib 10
