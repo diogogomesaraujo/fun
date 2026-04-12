@@ -25,7 +25,7 @@ rule read =
     | ":=" { EQUAL }
     | "fix" { FIX }
     | "def" { DEF }
-    | "def rec" { DEFREC }
+    | "rec" { REC }
     | "ifzero" { IFZERO }
     | ['a'-'z' 'A'-'Z' '_']+ { ID (Lexing.lexeme lexbuf) }
     | eof { EOF }

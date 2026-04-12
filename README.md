@@ -57,7 +57,7 @@ There are several examples you can try in the [`examples`](./examples) folder su
 
 1. Increment
 ```haskell
-let incr =
+let incr :=
   \x -> x + 1
 in incr 1
 ```
@@ -65,48 +65,33 @@ in incr 1
 2. Factorial
 
 ```haskell
-let fact =
-    fix (
-        \g x ->
-            ifzero x 1 (x * (g (x - 1)))
-    )
+def rec fact : x
+    := ifzero x 1 (x * fact (x - 1))
 in fact 5
 ```
 
 3. Fibonnaci Sequence
 
 ```haskell
-let fib =
-    fix (
-        \g x ->
-            ifzero (x - 1) 1
-                (ifzero x 1 ((g (x - 1)) + (g (x - 2))))
-    )
+def rec fib : x
+    := ifzero (x - 1) 1 (ifzero x 1 ((fib (x - 1)) + (fib (x - 2))))
 in fib 10
 ```
 
 4. Tribonnaci Sequence
 ```haskell
-let trib =
-    fix (
-        \g x ->
-            ifzero x 0
-                (ifzero (x - 1) 1
-                    (ifzero (x - 2) 1 (g (x - 1) + g (x - 2) + g (x - 3)))))
-in trib 1
+let trib := fix (\trib x -> ifzero x 0 (ifzero (x - 1) 1
+            (ifzero (x - 2) 1 (trib (x - 1) + trib (x - 2) + trib (x - 3)))))
+in trib 5
 ```
 
 5. Catalan Numbers
 ```haskell
-let fact =
-    fix (
-        \g x ->
-            ifzero x 1 (x * g (x - 1))
-    )
-in let catalan =
-    \x ->
-        fact (2 * x) /
-        (fact (x + 1) * fact x)
+def rec fact : x
+    := ifzero x 1 (x * fact (x - 1))
+in def rec catalan : x
+    := fact (2 * x) / (fact (x + 1) * fact x)
 in catalan 10
+
 ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
