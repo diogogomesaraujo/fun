@@ -29,6 +29,8 @@ rule read =
     | "ifzero" { IFZERO }
     | "then" { THEN }
     | "else" { ELSE }
+    | "<" { LESS }
+    | ">" { GREATER }
     | ['a'-'z' 'A'-'Z' '_']+ { ID (Lexing.lexeme lexbuf) }
     | eof { EOF }
     | _ as lxm { raise @@ Exn(Lex, "unexpected char" ^ (String.make 1 lxm)) }

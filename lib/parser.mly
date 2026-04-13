@@ -24,6 +24,8 @@
 %token DOTS
 %token THEN
 %token ELSE
+%token LESS
+%token GREATER
 
 %start <Ast.term> prog
 %%
@@ -45,16 +47,22 @@ sum:
   ;
 
 mul:
-  | e1 = mul; MUL; e2 = app { Multiplication (e1, e2) }
-  | e1 = mul; DIV; e2 = app { Division (e1, e2) }
+  | e1 = mul; MUL; e2 = cond { Multiplication (e1, e2) }
+  | e1 = mul; DIV; e2 = cond { Division (e1, e2) }
+  | c = cond { c }
+
+cond:
+  | c1 = app; LESS; c2 = app { Less(c1, c2) }
+  | c1 = app; GREATER; c2 = app { Greater(c1, c2) }
   | a = app { a }
+  ;
 
 app:
   | a1 = app; a2 = atomic { Application (a1, a2) }
   | a = atomic { a }
 
 expr:
-  | a = sum { a }
+  | s = sum { s }
   | DEF; REC; id = ID; DOTS; vars = list(ID); EQUAL; e1 = expr; IN e2 = expr { DefRec (id, vars, e1, e2) }
   | DEF; id = ID; DOTS; vars = list(ID); EQUAL; e1 = expr; IN e2 = expr { Def (id, vars, e1, e2) }
   | FUN; idl = list(ID); ARROW; e = expr { Lambda (idl, e) }

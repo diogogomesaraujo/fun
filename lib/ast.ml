@@ -18,5 +18,7 @@ type term =
   | Subtraction of term * term
   | Multiplication of term * term
   | Division of term * term
+  | Less of term * term
+  | Greater of term * term
   | Fix of term
   [@@deriving show]

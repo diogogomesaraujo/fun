@@ -3,6 +3,11 @@
 open Exn
 open Secd
 
+let execute_b b =
+  match b with
+  | true -> 0
+  | false -> 1
+
 (** [execute c] is the SECD virtual machine that evaluates a configuration [c]
 based on the first instruction from the code.*)
 let execute c =
@@ -35,6 +40,14 @@ let execute c =
   (* Pop the first two values in the stack and push their division.*)
   | ((Int v1)::(Int v2)::s, e, DIV::c, d, m) ->
     let value = (Int (v2 / v1)) in
+    (value::s, e, c, d, m)
+
+  | ((Int v1)::(Int v2)::s, e, LT::c, d, m) ->
+    let value =  Int (v2 < v1 |> execute_b) in
+    (value::s, e, c, d, m)
+
+  | ((Int v1)::(Int v2)::s, e, GT::c, d, m) ->
+    let value =  Int (v2 > v1 |> execute_b) in
     (value::s, e, c, d, m)
 
   (* Load a λ-abstraction as a closure onto the stack.*)

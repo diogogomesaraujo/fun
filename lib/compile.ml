@@ -42,6 +42,16 @@ and compile e sym =
     let c2 = compile e2 sym in
     c1 @ c2 @ [DIV]
 
+  | Less (e1, e2) ->
+    let c1 = compile e1 sym in
+    let c2 = compile e2 sym in
+    c1 @ c2 @ [LT]
+
+  | Greater (e1, e2) ->
+    let c1 = compile e1 sym in
+    let c2 = compile e2 sym in
+    c1 @ c2 @ [GT]
+
   | Lambda (l, e) ->
     compile_lambda l e sym
 
