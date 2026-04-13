@@ -76,22 +76,18 @@ in fact 5
 
 ```haskell
 def rec fib : x
-    := ifzero x - 1
+    := ifzero x < 2
         then 1
-        else ifzero x
-            then 1
-            else (fib (x - 1)) + (fib (x - 2))
+        else (fib (x - 1)) + (fib (x - 2))
 in fib 10
 ```
 
 4. Tribonnaci Sequence
 ```haskell
 let trib := fix (\trib x -> ifzero x then 0 else
-    ifzero x - 1
+    ifzero x <= 2
         then 1
-        else ifzero x - 2
-            then 1
-            else trib (x - 1) + trib (x - 2) + trib (x - 3))
+        else trib (x - 1) + trib (x - 2) + trib (x - 3))
 in trib 5
 ```
 
