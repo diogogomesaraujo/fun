@@ -22,7 +22,9 @@ rule read =
     | "let" { LET }
     | "in" { IN }
     | ":" { DOTS }
-    | ":=" { EQUAL }
+    | ":=" { ASSIGN }
+    | "=" { EQUAL }
+    | "<>" { DIFF }
     | "fix" { FIX }
     | "def" { DEF }
     | "rec" { REC }

@@ -52,6 +52,26 @@ and compile e sym =
     let c2 = compile e2 sym in
     c1 @ c2 @ [GT]
 
+  | Equal (e1, e2) ->
+    let c1 = compile e1 sym in
+    let c2 = compile e2 sym in
+    c1 @ c2 @ [EQ]
+
+  | Different (e1, e2) ->
+    let c1 = compile e1 sym in
+    let c2 = compile e2 sym in
+    c1 @ c2 @ [DF]
+
+  | GreaterEqual (e1, e2) ->
+    let c1 = compile e1 sym in
+    let c2 = compile e2 sym in
+    c1 @ c2 @ [GTE]
+
+  | LessEqual (e1, e2) ->
+    let c1 = compile e1 sym in
+    let c2 = compile e2 sym in
+    c1 @ c2 @ [LTE]
+
   | Lambda (l, e) ->
     compile_lambda l e sym
 

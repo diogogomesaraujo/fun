@@ -50,6 +50,22 @@ let execute c =
     let value =  Int (v2 > v1 |> execute_b) in
     (value::s, e, c, d, m)
 
+  | ((Int v1)::(Int v2)::s, e, EQ::c, d, m) ->
+    let value =  Int (v2 = v1 |> execute_b) in
+    (value::s, e, c, d, m)
+
+  | ((Int v1)::(Int v2)::s, e, DF::c, d, m) ->
+    let value =  Int (v2 <> v1 |> execute_b) in
+    (value::s, e, c, d, m)
+
+  | ((Int v1)::(Int v2)::s, e, GTE::c, d, m) ->
+    let value =  Int (v2 >= v1 |> execute_b) in
+    (value::s, e, c, d, m)
+
+  | ((Int v1)::(Int v2)::s, e, LTE::c, d, m) ->
+    let value =  Int (v2 <= v1 |> execute_b) in
+    (value::s, e, c, d, m)
+
   (* Load a λ-abstraction as a closure onto the stack.*)
   | (s, e, (LDF c')::c, d, m) ->
     let address = StoreMap.next m in

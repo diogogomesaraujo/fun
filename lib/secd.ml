@@ -18,7 +18,7 @@ and instr =
   | LDC of int
   | LD of int
   | ADD | SUB | MUL | DIV
-  | LT | GT
+  | LT | GT | EQ | DF | GTE | LTE
   | SEL of instr list * instr list
   | JOIN
   | LDF of instr list

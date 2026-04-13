@@ -26,6 +26,8 @@
 %token ELSE
 %token LESS
 %token GREATER
+%token ASSIGN
+%token DIFF
 
 %start <Ast.term> prog
 %%
@@ -54,6 +56,10 @@ mul:
 cond:
   | c1 = app; LESS; c2 = app { Less(c1, c2) }
   | c1 = app; GREATER; c2 = app { Greater(c1, c2) }
+  | c1 = app; EQUAL; c2 = app { Equal(c1, c2) }
+  | c1 = app; LESS; EQUAL; c2 = app { LessEqual(c1, c2) }
+  | c1 = app; GREATER; EQUAL; c2 = app { GreaterEqual(c1, c2) }
+  | c1 = app; DIFF; c2 = app { Different(c1, c2) }
   | a = app { a }
   ;
 
@@ -63,9 +69,9 @@ app:
 
 expr:
   | s = sum { s }
-  | DEF; REC; id = ID; DOTS; vars = list(ID); EQUAL; e1 = expr; IN e2 = expr { DefRec (id, vars, e1, e2) }
-  | DEF; id = ID; DOTS; vars = list(ID); EQUAL; e1 = expr; IN e2 = expr { Def (id, vars, e1, e2) }
+  | DEF; REC; id = ID; DOTS; vars = list(ID); ASSIGN; e1 = expr; IN e2 = expr { DefRec (id, vars, e1, e2) }
+  | DEF; id = ID; DOTS; vars = list(ID); ASSIGN; e1 = expr; IN e2 = expr { Def (id, vars, e1, e2) }
   | FUN; idl = list(ID); ARROW; e = expr { Lambda (idl, e) }
-  | LET; id = ID; EQUAL; e1 = expr; IN e2 = expr { Let (id, e1, e2) }
+  | LET; id = ID; ASSIGN; e1 = expr; IN e2 = expr { Let (id, e1, e2) }
   | IFZERO; e1 = expr; THEN; e2 = expr; ELSE; e3 = expr { IfZero (e1, e2, e3) }
   | FIX; a = atomic { Fix (a) }
