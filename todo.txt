@@ -1,0 +1,4 @@
+TODO:
+- Conditionals;
+- Pattern Matching;
+- Lists;

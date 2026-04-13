@@ -37,6 +37,14 @@ let execute c =
     let value = (Int (v2 / v1)) in
     (value::s, e, c, d, m)
 
+  | ((Int v1)::(Int v2)::s, e, LT::c, d, m) ->
+    let value =
+      match v1 < v2 with
+      | true -> Int 0
+      | false -> Int 1
+    in
+    (value::s, e, c, d, m)
+
   (* Load a λ-abstraction as a closure onto the stack.*)
   | (s, e, (LDF c')::c, d, m) ->
     let address = StoreMap.next m in
