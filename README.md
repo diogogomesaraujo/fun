@@ -12,6 +12,15 @@
 This repository contains a compiler from an extended call-by-value λ-Calculus to SECD-machine instructions and a stack machine that runs the compiled code. To learn more about the implementation read the [report](./report.pdf).
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Features
+
+- Conditionals (ifzero then else, `=`, `<>`, `<`, `>`, `<=`, `>=`);
+- Arithmetic expressions (`+`, `-`, `/`, `*`);
+- Lambda Functions (`\x -> _`);
+- Recursive and Non-Recursive Functions (`def f : x := _`, `def rec f : x := _`);
+- Fixpoint (`fix (\g x -> _)`)
+- Currying (`(\x' -> _) x`)
+
 ## Getting Started
 
 ### Prerequisites
