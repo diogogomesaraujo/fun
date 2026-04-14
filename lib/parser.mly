@@ -42,6 +42,16 @@ atomic:
   | LPAR; e = expr; RPAR { e }
   ;
 
+cond:
+  | c1 = sum; LESS; c2 = sum { Less(c1, c2) }
+  | c1 = sum; GREATER; c2 = sum { Greater(c1, c2) }
+  | c1 = sum; EQUAL; c2 = sum { Equal(c1, c2) }
+  | c1 = sum; LESS; EQUAL; c2 = sum { LessEqual(c1, c2) }
+  | c1 = sum; GREATER; EQUAL; c2 = sum { GreaterEqual(c1, c2) }
+  | c1 = sum; DIFF; c2 = sum { Different(c1, c2) }
+  | s = sum { s }
+  ;
+
 sum:
   | e1 = sum; SUM; e2 = mul { Addition (e1, e2) }
   | e1 = sum; SUB; e2 = mul { Subtraction (e1, e2) }
@@ -49,17 +59,8 @@ sum:
   ;
 
 mul:
-  | e1 = mul; MUL; e2 = cond { Multiplication (e1, e2) }
-  | e1 = mul; DIV; e2 = cond { Division (e1, e2) }
-  | c = cond { c }
-
-cond:
-  | c1 = app; LESS; c2 = app { Less(c1, c2) }
-  | c1 = app; GREATER; c2 = app { Greater(c1, c2) }
-  | c1 = app; EQUAL; c2 = app { Equal(c1, c2) }
-  | c1 = app; LESS; EQUAL; c2 = app { LessEqual(c1, c2) }
-  | c1 = app; GREATER; EQUAL; c2 = app { GreaterEqual(c1, c2) }
-  | c1 = app; DIFF; c2 = app { Different(c1, c2) }
+  | e1 = mul; MUL; e2 = app { Multiplication (e1, e2) }
+  | e1 = mul; DIV; e2 = app { Division (e1, e2) }
   | a = app { a }
   ;
 
@@ -68,7 +69,7 @@ app:
   | a = atomic { a }
 
 expr:
-  | s = sum { s }
+  | c = cond { c }
   | DEF; REC; id = ID; DOTS; vars = list(ID); ASSIGN; e1 = expr; IN e2 = expr { DefRec (id, vars, e1, e2) }
   | DEF; id = ID; DOTS; vars = list(ID); ASSIGN; e1 = expr; IN e2 = expr { Def (id, vars, e1, e2) }
   | FUN; idl = list(ID); ARROW; e = expr { Lambda (idl, e) }
