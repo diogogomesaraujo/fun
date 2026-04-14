@@ -5,6 +5,7 @@ open Exn
 open Secd
 open Lookup
 
+(** [compile_lambda l e sym] compiles a lambda term recursively until the argument list [l] has been fully consumed.*)
 let rec compile_lambda l e sym =
   match l with
   | [] -> compile e sym

@@ -42,26 +42,32 @@ let execute c =
     let value = (Int (v2 / v1)) in
     (value::s, e, c, d, m)
 
+  (* Pop the first two values in the stack and push the result of the conditional <.*)
   | ((Int v1)::(Int v2)::s, e, LT::c, d, m) ->
     let value =  Int (v2 < v1 |> execute_b) in
     (value::s, e, c, d, m)
 
+  (* Pop the first two values in the stack and push the result of the conditional >.*)
   | ((Int v1)::(Int v2)::s, e, GT::c, d, m) ->
     let value =  Int (v2 > v1 |> execute_b) in
     (value::s, e, c, d, m)
 
+  (* Pop the first two values in the stack and push the result of the conditional =.*)
   | ((Int v1)::(Int v2)::s, e, EQ::c, d, m) ->
     let value =  Int (v2 = v1 |> execute_b) in
     (value::s, e, c, d, m)
 
+  (* Pop the first two values in the stack and push the result of the conditional <>.*)
   | ((Int v1)::(Int v2)::s, e, DF::c, d, m) ->
     let value =  Int (v2 <> v1 |> execute_b) in
     (value::s, e, c, d, m)
 
+  (* Pop the first two values in the stack and push the result of the conditional >=.*)
   | ((Int v1)::(Int v2)::s, e, GTE::c, d, m) ->
     let value =  Int (v2 >= v1 |> execute_b) in
     (value::s, e, c, d, m)
 
+  (* Pop the first two values in the stack and push the result of the conditional <=.*)
   | ((Int v1)::(Int v2)::s, e, LTE::c, d, m) ->
     let value =  Int (v2 <= v1 |> execute_b) in
     (value::s, e, c, d, m)
