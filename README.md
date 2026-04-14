@@ -17,9 +17,10 @@ This repository contains a compiler from an extended call-by-value λ-Calculus t
 - Conditionals (ifzero then else, `=`, `<>`, `<`, `>`, `<=`, `>=`);
 - Arithmetic expressions (`+`, `-`, `/`, `*`);
 - Lambda Functions (`\x -> _`);
+- Variable Declaration (`let x := _`);
 - Recursive and Non-Recursive Functions (`def f : x := _`, `def rec f : x := _`);
-- Fixpoint (`fix (\g x -> _)`)
-- Currying (`(\x' -> _) x`)
+- Fixpoint (`fix (\g x -> _)`);
+- Currying (`(\x' -> _) x`).
 
 ## Getting Started
 
