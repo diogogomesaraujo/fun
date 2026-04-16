@@ -31,6 +31,9 @@ rule read =
     | "ifzero" { IFZERO }
     | "then" { THEN }
     | "else" { ELSE }
+    | "match" { MATCH }
+    | "with" { WITH }
+    | "|" { BAR }
     | "<" { LESS }
     | ">" { GREATER }
     | ['a'-'z' 'A'-'Z' '_']+ { ID (Lexing.lexeme lexbuf) }

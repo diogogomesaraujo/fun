@@ -28,6 +28,9 @@
 %token GREATER
 %token ASSIGN
 %token DIFF
+%token MATCH
+%token WITH
+%token BAR
 
 %start <Ast.term> prog
 %%
@@ -67,6 +70,11 @@ mul:
 app:
   | a1 = app; a2 = atomic { Application (a1, a2) }
   | a = atomic { a }
+  ;
+
+brch:
+  | BAR; t1 = sum; ARROW; t2 = atomic; { (t1, t2) }
+  ;
 
 expr:
   | c = cond { c }
@@ -75,4 +83,5 @@ expr:
   | FUN; idl = list(ID); ARROW; e = expr { Lambda (idl, e) }
   | LET; id = ID; ASSIGN; e1 = expr; IN e2 = expr { Let (id, e1, e2) }
   | IFZERO; e1 = expr; THEN; e2 = expr; ELSE; e3 = expr { IfZero (e1, e2, e3) }
+  | MATCH; v = expr; WITH; l = list(brch) { Match (v, l) }
   | FIX; a = atomic { Fix (a) }

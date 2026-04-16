@@ -13,6 +13,15 @@ let rec compile_lambda l e sym =
     let c = compile_lambda tl e (x::sym)
     in [LDF (c @ [RTN])]
 
+and compile_cases v l sym =
+  match l with
+    | (t1, t2)::tl ->
+      let c = compile t1 sym in
+      let c1 = compile t2 sym @ [JOIN] in
+      let c2 = compile_cases v tl sym @ [JOIN] in
+      v @ c @ [EQ] @ [SEL (c1, c2)]
+    | [] -> []
+
 (** [compile e sym] compiles a term recursively into SECD-machine code.
 It receives a term [e], as well as a symbol table [sym] that stores variable names at compile time.*)
 and compile e sym =
@@ -77,13 +86,16 @@ and compile e sym =
     compile_lambda l e sym
 
   | Application (e1, e2) ->
-    (compile e1 sym) @
-    (compile e2 sym) @ [AP]
+    compile e1 sym @
+    compile e2 sym @ [AP]
 
   | IfZero (e1, e2, e3) ->
     let c2 = (compile e2 sym) @ [JOIN] in
     let c3 = (compile e3 sym) @ [JOIN] in
-    (compile e1 sym) @ [SEL (c2, c3)]
+    compile e1 sym @ [SEL (c2, c3)]
+
+  | Match (x, l) ->
+    compile_cases (compile x sym) l sym
 
   | Let (x, e1, e2) ->
     let c1 = compile e1 sym in

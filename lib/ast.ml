@@ -4,13 +4,16 @@
 type identity = string
   [@@deriving show]
 
+type branch = term * term
+
 (** Type that represents a term recognized by the compiler.*)
-type term =
+and term =
   | Variable of identity
   | Lambda of identity list * term
   | Application of term * term
   | Constant of int
   | IfZero of term * term * term
+  | Match of term * branch list
   | Let of identity * term * term
   | Def of identity * identity list * term * term
   | DefRec of identity * identity list * term * term
